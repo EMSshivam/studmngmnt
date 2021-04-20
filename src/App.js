@@ -41,12 +41,12 @@ function App() {
           left: "5%",
         }}
       >
-        {/* <Main
+        <Main
           openDrawer={(stud) => {
             setDrawer(true);
             setDrawerData(stud);
           }}
-        /> */}
+        />
       </div>
     </div>
   );
