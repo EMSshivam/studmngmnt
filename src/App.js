@@ -1,23 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useRef, useEffect } from "react";
+import "./App.css";
+import Drawer from "./Components/Drawer/Drawer";
+import DrawerChild from "./Components/DrawerChild/DrawerChild";
+import Main from "./Components/Main/Main";
 
 function App() {
+  const [drawer, setDrawer] = useState(false);
+
+  const [drawerData, setDrawerData] = useState({});
+
+  let Draw = null;
+  if (drawer) {
+    Draw = (
+      <div>
+        <Drawer
+          compo={
+            <DrawerChild
+              data={drawerData}
+              closeDrawer={() => setDrawer(false)}
+            />
+          }
+        />
+      </div>
+    );
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ height: "100%" }}>
+      {drawer ? (
+        <div>
+          <Drawer
+            compo={<DrawerChild data={drawerData} />}
+            closeDrawer={() => setDrawer(false)}
+          />
+        </div>
+      ) : null}
+      <div
+        style={{
+          maxWidth: drawer ? `${window.innerWidth - 600}px` : "100%",
+          position: "relative",
+          left: "5%",
+        }}
+      >
+        <Main
+          openDrawer={(stud) => {
+            setDrawer(true);
+            setDrawerData(stud);
+          }}
+        />
+      </div>
     </div>
   );
 }
